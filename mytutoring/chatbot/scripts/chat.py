@@ -2,9 +2,9 @@ import random
 import json
 import os
 import torch
-from .model import NeuralNet
+from model import NeuralNet
 
-from .nltk_utils import bag_of_words, tokenize
+from nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Get the directory where this script is located
@@ -111,7 +111,8 @@ if __name__ == "__main__":
             print("Here's your question:")
             print(resp["question"])
             print("Options:", ", ".join(resp["choices"]))
-            previous_question = resp["context"]  # Save the question context
+            print(resp)
+            previous_question = resp.get("context", None)
         else:
             # If it's just a simple text response
             print(resp)
