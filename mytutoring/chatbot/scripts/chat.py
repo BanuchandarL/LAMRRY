@@ -1,18 +1,21 @@
 import random
 import json
-
+import os
 import torch
+from .model import NeuralNet
 
-from model import NeuralNet
-from nltk_utils import bag_of_words, tokenize
+from .nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# Get the directory where this script is located
+current_directory = os.path.dirname(os.path.abspath(__file__))
+intents_path = os.path.join(current_directory, 'intents.json')
 
-with open('intents.json', 'r') as json_data:
+with open(intents_path, 'r') as json_data:
     intents = json.load(json_data)
 
-FILE = "data.pth"
-data = torch.load(FILE)
+data_path = os.path.join(current_directory, 'data.pth')
+data = torch.load(data_path)
 
 input_size = data["input_size"]
 hidden_size = data["hidden_size"]
@@ -76,6 +79,7 @@ def get_response(msg, previous_question=None):
     if prob.item() > 0.75:
         # Check if the tag corresponds to a known MCQ topic
         if tag in MCQ_TAGS.values():
+            print("check", tag)
             question = get_mcq_by_topic(tag)
             if question:
                 # Return the question with the choices

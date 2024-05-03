@@ -2,29 +2,13 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": [
-        "Hi",
-        "Hey",
-        "How are you",
-        "Is anyone there?",
-        "Hello",
-        "Good day"
-      ],
-      "responses": [
-        "Hey :-)",
-        "Hello, thanks for visiting",
-        "Hi there, what can I do for you?",
-        "Hi there, how can I help?"
-      ]
+      "patterns": [ "Hi", "Hey", "How are you", "Is anyone there?", "Hello", "Good day" ],
+      "responses": [ "Hey :-)", "Hello, thanks for visiting", "Hi there, what can I do for you?", "Hi there, how can I help?" ]
     },
     {
       "tag": "goodbye",
       "patterns": ["Bye", "See you later", "Goodbye"],
-      "responses": [
-        "See you later, thanks for visiting",
-        "Have a nice day",
-        "Bye! Come back again soon."
-      ]
+      "responses": [ "See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon." ]
     },
     {
       "tag": "thanks",
@@ -33,11 +17,7 @@
     },
     {
       "tag": "python_mcq",
-      "patterns": [
-        "Give me a Python question",
-        "I want a Python quiz",
-        "Ask me a Python MCQ"
-      ],
+      "patterns": [ "Give me a Python question", "I want a Python quiz", "Ask me a Python MCQ" ],
       "responses": [
         {
           "question": "Which of the following is a list in Python?",

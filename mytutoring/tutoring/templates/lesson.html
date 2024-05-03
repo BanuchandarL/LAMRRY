@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="csrf-token" content="{% csrf_token %}">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png">
 
@@ -286,44 +286,14 @@
                 <h4>Message Us</h4>
                 <p><i class="fa fa-times"></i></p>
             </div>
-            <div class="chat-box-body">
-                <div class="chat-box-body-send">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-receive">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-receive">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-send">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-send">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-receive">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-receive">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
-                <div class="chat-box-body-send">
-                    <p>This is my message.</p>
-                    <span>12:00</span>
-                </div>
+            <div class="chat-box-body" id="chat-box-body">
+                
             </div>
             <div class="chat-box-footer">
-                
-                <input placeholder="Enter Your Message" type="text" />
-                <i class="send far fa-paper-plane"></i>
+                <form id="chat-form">
+                    {% csrf_token %}
+                    <input id="chat-msg-send" placeholder="Enter Your Message" type="text" autocomplete="off"/>
+                </form>
             </div>
         </div>
         <div class="chat-button"><span><img src="/static/images/team/avatar.jpg" alt="User Images"></span></div>
@@ -363,6 +333,80 @@
     <!-- Main JS -->
     <script src="/static/js/main.js"></script>
     <script src="/static/js/chatbot-script.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            const form = $("#chat-form");
+            const inputField = $("#chat-msg-send");
+
+            // Add a keydown event listener to the input field
+            inputField.keydown(function(event) {
+                // Check if the Enter key is pressed
+                if (event.key === 'Enter') {
+                event.preventDefault();  // Prevent the default action
+
+                // Get the message from the input field
+                var msg = inputField.val();
+
+                var myMessage = { text: msg };
+                addMessageToChatBox(myMessage, 'send');  // Adding a sent message
+
+                // AJAX POST request with CSRF token
+                $.ajax({
+                    type: "POST",
+                    url: "/chatbot/chat/",  
+                    data: {
+                    'csrfmiddlewaretoken': getCsrfToken(),  
+                    'message': msg
+                    },
+                    success: function(response) {
+                        console.log("Response:", response);
+                    
+                        var responseMessage = { text: response.response };
+                        addMessageToChatBox(responseMessage, 'receive'); 
+                    },
+                    error: function(error) {
+                    console.error("Error:", error);  
+                    }
+                });
+
+                // Clear the input field after submission
+                inputField.val('');
+                }
+            });
+
+            // Function to get CSRF token for secure AJAX requests
+            function getCsrfToken() {
+                return form.find("[name=csrfmiddlewaretoken]").val();  // Extract the CSRF token from the form
+            }
+
+            function addMessageToChatBox(message, type) {
+                // Create a new div for the message
+                var newMessage = document.createElement('div');
+
+                // Set the class based on the message type (send or receive)
+                if (type === 'send') {
+                    newMessage.className = 'chat-box-body-send';
+                } else if (type === 'receive') {
+                    newMessage.className = 'chat-box-body-receive';
+                }
+
+                // Add the message content
+                newMessage.innerHTML = `
+                    <p>${message.text}</p>
+                `;
+
+                // Append the new message to the chat box
+                var chatBox = document.getElementById('chat-box-body');
+                chatBox.appendChild(newMessage);
+
+                // Optionally, scroll to the bottom of the chat box to show the latest message
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        });
+
+    </script>
 
 </body>
 
