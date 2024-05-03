@@ -2,9 +2,9 @@ import random
 import json
 import os
 import torch
-from model import NeuralNet
+from .model import NeuralNet
 
-from nltk_utils import bag_of_words, tokenize
+from .nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Get the directory where this script is located

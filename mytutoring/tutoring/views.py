@@ -37,3 +37,7 @@ def lesson_assign_submit(request):
     # lesson = get_object_or_404(Lesson, id=id)
     return render(request, 'lesson-assignments-submit.html')
 
+
+def lesson_intro(request):
+    # lesson = get_object_or_404(Lesson, id=id)
+    return render(request, 'lesson-intro.html')

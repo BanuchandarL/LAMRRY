@@ -12,5 +12,6 @@ urlpatterns = [
     path('lesson-quiz-result', views.lesson_quiz_result, name='lesson_quiz_result'),
     path('lesson-assign', views.lesson_assign, name='lesson_assign'),
     path('lesson-assign-submit', views.lesson_assign_submit, name='lesson_assign_submit'),
+    path('lesson-intro', views.lesson_intro, name='lesson_intro'),
 
 ]

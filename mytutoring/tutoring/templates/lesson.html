@@ -9,7 +9,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{% csrf_token %}">
-    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png">
 
     <!-- CSS
@@ -68,7 +67,7 @@
                                         <ul class="rbt-course-main-content liststyle">
 
                                             <li>
-                                                <a href="lesson.html">
+                                                <a href="lesson">
                                                     <div class="course-content-left">
                                                         <i class="feather-play-circle"></i> <span class="text">Course
                                             Intro</span>
@@ -81,7 +80,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="lesson-intro.html">
+                                                <a href="lesson-intro">
                                                     <div class="course-content-left">
                                                         <i class="feather-file-text"></i> <span class="text">Introduction</span>
                                                     </div>
@@ -107,7 +106,7 @@
                                         <ul class="rbt-course-main-content liststyle">
 
                                             <li>
-                                                <a href="lesson.html">
+                                                <a href="lesson">
                                                     <div class="course-content-left">
                                                         <i class="feather-play-circle"></i> <span class="text">Hello World!
                                         </span>
@@ -339,6 +338,7 @@
         $(document).ready(function() {
             const form = $("#chat-form");
             const inputField = $("#chat-msg-send");
+            var currentContext = null;
 
             // Add a keydown event listener to the input field
             inputField.keydown(function(event) {
@@ -358,13 +358,29 @@
                     url: "/chatbot/chat/",  
                     data: {
                     'csrfmiddlewaretoken': getCsrfToken(),  
-                    'message': msg
+                    'message': msg,
+                    'context': currentContext
                     },
                     success: function(response) {
                         console.log("Response:", response);
-                    
-                        var responseMessage = { text: response.response };
-                        addMessageToChatBox(responseMessage, 'receive'); 
+                        var resp = response.response;
+
+                        if (resp.hasOwnProperty("question")) {
+                            var questionText = "Question: " + resp.question;
+                            var choicesText = "Options: " + resp.choices.join(", ");
+                            
+                            var responseMessage = {
+                                text: questionText + "\n" + choicesText,
+                                context: resp.context
+                            };
+                            currentContext = resp.context;
+                            addMessageToChatBox(responseMessage, 'receive');  // Handle adding the message to the chatbox
+                        } else {
+                            // If it's a simple text response
+                            var responseMessage = { text: resp };
+                            currentContext = null;
+                            addMessageToChatBox(responseMessage, 'receive');  // Handle adding the message to the chatbox
+                        } 
                     },
                     error: function(error) {
                     console.error("Error:", error);  

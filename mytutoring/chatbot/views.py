@@ -14,9 +14,9 @@ def chat(request):
 
         # Step 2: Extract specific parameters
         user_message = body_dict.get('message', [''])[0]  # Get the message parameter
-
+        previous_question = body_dict.get("context", None)
         # Get chatbot response
-        response = get_response(user_message)  # Assuming this function processes the message
+        response = get_response(user_message, previous_question)  # Assuming this function processes the message
         
         return JsonResponse({"response": response})
 
