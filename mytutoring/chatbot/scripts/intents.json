@@ -1,0 +1,119 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hello, thanks for visiting",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "python_mcq",
+      "patterns": [
+        "Give me a Python question",
+        "I want a Python quiz",
+        "Ask me a Python MCQ"
+      ],
+      "responses": [
+        {
+          "question": "Which of the following is a list in Python?",
+          "choices": ["{1, 2, 3}", "(1, 2, 3)", "[1, 2, 3]", "<1, 2, 3>"],
+          "correct": "[1, 2, 3]",
+          "explanation": "Lists in Python are defined using square brackets."
+        },
+        {
+          "question": "What is the output of `print(2 * 3 + 5)`?",
+          "choices": ["11", "16", "10", "9"],
+          "correct": "11",
+          "explanation": "Multiplication has higher precedence than addition. So, 2 * 3 is 6, then 6 + 5 is 11."
+        },
+        {
+          "question": "Which keyword is used to define a function in Python?",
+          "choices": ["func", "def", "lambda", "method"],
+          "correct": "def",
+          "explanation": "The `def` keyword is used to define functions in Python."
+        }
+      ]
+    },
+    {
+      "tag": "nodejs_mcq",
+      "patterns": [
+        "Give me a Node.js question",
+        "I want a Node.js quiz",
+        "Ask me a Node.js MCQ"
+      ],
+      "responses": [
+        {
+          "question": "Which of these is a built-in module in Node.js?",
+          "choices": ["fs", "lodash", "express", "async"],
+          "correct": "fs",
+          "explanation": "The `fs` module is used for file system operations and is built into Node.js."
+        },
+        {
+          "question": "What is the command to initialize a new Node.js project?",
+          "choices": ["npm init", "node init", "npx init", "npm start"],
+          "correct": "npm init",
+          "explanation": "The `npm init` command is used to initialize a new Node.js project."
+        },
+        {
+          "question": "Which global object in Node.js is used for handling asynchronous operations?",
+          "choices": ["global", "process", "Promise", "Buffer"],
+          "correct": "Promise",
+          "explanation": "The `Promise` object is a common way to handle asynchronous operations in Node.js."
+        }
+      ]
+    },
+    {
+      "tag": "fullstack_mcq",
+      "patterns": [
+        "Give me a full-stack question",
+        "I want a full-stack quiz",
+        "Ask me a full-stack MCQ"
+      ],
+      "responses": [
+        {
+          "question": "Which of the following is a back-end framework?",
+          "choices": ["React", "Angular", "Express", "Vue"],
+          "correct": "Express",
+          "explanation": "Express is a popular back-end framework for Node.js."
+        },
+        {
+          "question": "Which of the following is a database?",
+          "choices": ["MongoDB", "Node.js", "HTML", "React"],
+          "correct": "MongoDB",
+          "explanation": "MongoDB is a NoSQL database often used in full-stack applications."
+        },
+        {
+          "question": "Which HTTP method is used to update a resource?",
+          "choices": ["GET", "POST", "PUT", "DELETE"],
+          "correct": "PUT",
+          "explanation": "The PUT method is used to update existing resources on the server."
+        }
+      ]
+    }
+  ]
+}
