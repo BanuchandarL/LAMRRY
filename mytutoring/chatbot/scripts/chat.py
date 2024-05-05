@@ -40,9 +40,14 @@ MCQ_TAGS = {
 # Function to fetch an MCQ based on a specific topic
 def get_mcq_by_topic(topic):
     tag = MCQ_TAGS.get(topic)
+    # print('tag', topic)
+    tag = topic
     if tag:
+        print('intents', intents)
         for intent in intents['intents']:
-            if intent['tag'] == tag:
+            print('tag', tag in intent['tag'])
+
+            if tag in intent['tag']:
                 # Select a random question from the intent
                 return random.choice(intent['responses'])
     return None
@@ -60,6 +65,8 @@ def check_mcq_answer(user_answer, question_info):
 
 
 def get_response(msg, previous_question=None):
+    print("previous question", previous_question)
+
     if previous_question:
         # The user is answering an MCQ, check the response
         return check_mcq_answer(msg, previous_question)
@@ -81,6 +88,7 @@ def get_response(msg, previous_question=None):
         if tag in MCQ_TAGS.values():
             print("check", tag)
             question = get_mcq_by_topic(tag)
+            print("question", question)
             if question:
                 # Return the question with the choices
                 return {
@@ -97,6 +105,7 @@ def get_response(msg, previous_question=None):
 
 
 if __name__ == "__main__":
+    previous_question = None
     print("Let's chat! (type 'quit' to exit)")
     while True:
         # sentence = "do you use credit cards?"
@@ -104,7 +113,7 @@ if __name__ == "__main__":
         if sentence == "quit":
             break
 
-        resp = get_response(sentence)
+        resp = get_response(sentence, previous_question)
 
         if isinstance(resp, dict):
             # If the response contains a question, it's an MCQ

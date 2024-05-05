@@ -2,3 +2,11 @@
 # http://git-scm.com/docs/gitignore
 
 env
+__pycache__/
+
+# Ignore all .pyc files
+*.pyc
+
+# Ignore other Python-related cache files
+*.pyo
+*.pyd
