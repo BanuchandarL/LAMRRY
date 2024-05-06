@@ -75,7 +75,7 @@
                     <div class="header-left rbt-header-content">
                         <div class="header-info">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="index">
                                     <img src="/static/images/logo/logo.png" alt="Education Logo Images">
                                 </a>
                             </div>
@@ -404,8 +404,8 @@
                                                         <li><a href="course-card-3.html">Course Card Three</a></li>
                                                         <li><a href="course-masonry.html">Course Masonry</a></li>
                                                         <li><a href="course-with-sidebar.html">Course With Sidebar</a></li>
-                                                        <li><a href="course-details">Course Details</a></li>
-                                                        <li><a href="course-details-2.html">Course Details Two</a></li>
+                                                        <li><a href="/tutoring/course-details">Course Details</a></li>
+                                                        <li><a href="/tutoring/course-details-3">Course Details Two</a></li>
                                                         <li><a href="lesson.html">Course Lesson <span class="rbt-badge-card">New</span></a></li>
                                                         <li><a href="create-course.html">Create Course <span class="rbt-badge-card">New</span></a></li>
                                                     </ul>
@@ -716,7 +716,7 @@
             <div class="inner-top">
                 <div class="content">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index">
                             <img src="/static/images/logo/logo.png" alt="Education Logo Images">
                         </a>
                     </div>
@@ -1057,8 +1057,8 @@
                                             <li><a href="course-card-3.html">Course Card Three</a></li>
                                             <li><a href="course-masonry.html">Course Masonry</a></li>
                                             <li><a href="course-with-sidebar.html">Course With Sidebar</a></li>
-                                            <li><a href="course-details">Course Details</a></li>
-                                            <li><a href="course-details-2.html">Course Details Two</a></li>
+                                            <li><a href="/tutoring/course-details">Course Details</a></li>
+                                            <li><a href="/tutoring/course-details-3">Course Details Two</a></li>
                                             <li><a href="lesson.html">Course Lesson <span class="rbt-badge-card">New</span></a></li>
                                             <li><a href="create-course.html">Create Course <span class="rbt-badge-card">New</span></a></li>
                                         </ul>
@@ -4396,6 +4396,12 @@
     <script src="/static/js/vendor/plyr.js"></script>
     <!-- Main JS -->
     <script src="/static/js/main.js"></script>
+<script>
+         $("#logout-link").on("click", function (event) {
+            event.preventDefault();  // Prevent the default anchor behavior
+            $("#logout-form").submit();  // Submit the hidden logout form
+        });
+    </script>
 </body>
 
 </html>

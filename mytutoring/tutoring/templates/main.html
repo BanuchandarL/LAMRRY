@@ -44,7 +44,7 @@
                     <div class="header-left rbt-header-content">
                         <div class="header-info">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="index">
                                     <img src="/static/images/logo/logo2.png" width="150" height="150" alt="Education Logo Images">
                                 </a>
                             </div>
@@ -59,6 +59,9 @@
                                 <li class="with-megamenu has-menu-child-item position-/static">
                                     <a href="/tutoring/">Home</a>
                                 </li>
+                                <li class="with-megamenu has-menu-child-item position-/static">
+                                    <a href="/tutoring/dashboard">Dashboard</a>
+                                </li>
 
                                 <li class="with-megamenu has-menu-child-item">
                                     <a href="#">Courses <i class="feather-chevron-down"></i></a>
@@ -71,9 +74,9 @@
                                                 <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
                                                     <h3 class="rbt-short-title">Courses</h3>
                                                     <ul class="mega-menu-item">
-                                                        <li><a href="course-details">The Complete Python 2023 <br>Zero to Hero</a></li>
-                                                        <li><a href="course-details-2">React Front-end Development 2023</a></li>
-                                                        <li><a href="course-details-3">Nodejs Fullstack Development 2024<span class="rbt-badge-card">New</span></a></li>
+                                                        <li><a href="/tutoring/course-details">The Complete Python 2023 <br>Zero to Hero</a></li>
+                                                        <li><a href="/tutoring/course-details-2">React Front-end Development 2023</a></li>
+                                                        <li><a href="/tutoring/course-details-3">Nodejs Fullstack Development 2024<span class="rbt-badge-card">New</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -88,49 +91,57 @@
                     </div>
 
                     <div class="header-right">
-
                         <!-- Navbar Icons -->
                         <ul class="quick-access">
-                            
+                            {% if user.is_authenticated %}
+                                <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                                    <a href="#"><i class="feather-user"></i>{{ user.first_name }}</a>
+                                    <div class="rbt-user-menu-list-wrapper">
+                                        <div class="inner">
+                                            <div class="rbt-admin-profile">
+                                                <div class="admin-thumbnail">
+                                                    <img src="/static/images/team/avatar.jpg" alt="User Images">
+                                                </div>
+                                                <div class="admin-info">
+                                                    <span class="name">{{ user.first_name }}</span>
+                                                </div>
+                                            </div>
+                                                                                
+                                            <hr class="mt--10 mb--10">
+                                            <ul class="user-list-wrapper">
+                                                <li>
+                                                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                                        {% csrf_token %}  <!-- CSRF token for security -->
+                                                    </form>
 
-                            <li class="account-access rbt-user-wrapper d-none d-xl-block">
-                                <a href="#"><i class="feather-user"></i>Divya</a>
-                                <div class="rbt-user-menu-list-wrapper">
-                                    <div class="inner">
-                                        <div class="rbt-admin-profile">
-                                            <div class="admin-thumbnail">
-                                                <img src="/static/images/team/avatar.jpeg" alt="User Images">
-                                            </div>
-                                            <div class="admin-info">
-                                                <span class="name">Divya</span>
-                                                <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
-                                            </div>
+                                                    <a href="#" id="logout-link">  <!-- Optional: href can be left as # or empty -->
+                                                        <i class="feather-log-out"></i>  <!-- Icon for logout -->
+                                                        <span>Logout</span>  <!-- Text for logout -->
+                                                    </a>
+                                                   
+                                                </li>
+                                            </ul>
                                         </div>
-                                                                               
-                                        <hr class="mt--10 mb--10">
-                                        <ul class="user-list-wrapper">
-                                            <li>
-                                                <a href=" ">
-                                                    <i class="feather-log-out"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
-                                </div>
-                            </li>
-
+                                </li>
+                            {% else %}
+                                <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                                    <a href="#"><i class="feather-user"></i><a href="{% url 'login' %}">Login</a></a>
+                                </li>
+                                
+                            {% endif %}
+                            
                             <li class="access-icon rbt-user-wrapper d-block d-xl-none">
                                 <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
                                 <div class="rbt-user-menu-list-wrapper">
                                     <div class="inner">
                                         <div class="rbt-admin-profile">
                                             <div class="admin-thumbnail">
-                                                <img src="/static/images/team/avatar.jpeg" alt="User Images">
+                                                <img src="/static/images/team/avatar.jpg" alt="User Images">
                                             </div>
                                             <div class="admin-info">
                                                 <span class="name">Divya</span>
-                                                <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
+                                                <a class="rbt-btn-link color-primary" href="dashboard">Dashboard</a>
                                             </div>
                                         </div>
                                         
@@ -139,7 +150,7 @@
                                         <ul class="user-list-wrapper">
                                             
                                             <li>
-                                                <a href="index.html">
+                                                <a href="index">
                                                     <i class="feather-log-out"></i>
                                                     <span>Logout</span>
                                                 </a>
@@ -149,12 +160,6 @@
                                 </div>
                             </li>
                         </ul>
-
-                        <!-- <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#">
-                                <span data-text="Enroll Now">Enroll Now</span>
-                            </a>
-                        </div> -->
 
                         <!-- Start Mobile-Menu-Bar -->
                         <div class="mobile-menu-bar d-block d-xl-none">
@@ -199,12 +204,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-01.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">React Js</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">React Js</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -231,12 +236,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-02.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Java Program</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Java Program</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -263,12 +268,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-03.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Web Design</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Web Design</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -295,12 +300,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-04.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Web Design</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Web Design</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -438,7 +443,7 @@
             <div class="inner-top">
                 <div class="content">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index">
                             <img src="/static/images/logo/logo.png" alt="Education Logo Images">
                         </a>
                     </div>
@@ -638,7 +643,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-card variation-01 rbt-hover">
                                             <div class="rbt-card-img">
-                                                <a href="course-details">
+                                                <a href="/tutoring/course-details">
                                                     <img src="/static/images/course/react-img.jpeg" alt="Card image">
                                                     <div class="rbt-badge-3 bg-white">
                                                         <span>-40%</span>
@@ -651,7 +656,7 @@
                                                     <li><i class="feather-book"></i>12 Lessons</li>
                                                     <li><i class="feather-users"></i>50 Students</li>
                                                 </ul>
-                                                <h4 class="rbt-card-title"><a href="course-details-3">React Development</a>
+                                                <h4 class="rbt-card-title"><a href="/tutoring/course-details-2">React Development</a>
                                                 </h4>
                                                 <p class="rbt-card-text">It is a long established fact that a reader
                                                     will be distracted.</p>
@@ -670,7 +675,7 @@
                                                         <span class="current-price">Free</span>
                                                         <span class="off-price">$120</span>
                                                     </div>
-                                                    <a class="rbt-btn-link" href="course-details-3">Learn More<i
+                                                    <a class="rbt-btn-link" href="/tutoring/course-details-2">Learn More<i
                                                             class="feather-arrow-right"></i></a>
                                                 </div>
                                             </div>
@@ -682,7 +687,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-card variation-01 rbt-hover">
                                             <div class="rbt-card-img">
-                                                <a href="course-details">
+                                                <a href="/tutoring/course-details">
                                                     <img src="/static/images/course/nodejs-img.jpeg" alt="Card image">
                                                     <div class="rbt-badge-3 bg-white">
                                                         <span>-40%</span>
@@ -695,7 +700,7 @@
                                                     <li><i class="feather-book"></i>12 Lessons</li>
                                                     <li><i class="feather-users"></i>50 Students</li>
                                                 </ul>
-                                                <h4 class="rbt-card-title"><a href="course-details-2">Nodejs Fullstack</a>
+                                                <h4 class="rbt-card-title"><a href="/tutoring/course-details-3">Nodejs Fullstack</a>
                                                 </h4>
                                                 <p class="rbt-card-text">It is a long established fact that a reader
                                                     will be distracted.</p>
@@ -714,7 +719,7 @@
                                                         <span class="current-price">Free</span>
                                                         <span class="off-price">$120</span>
                                                     </div>
-                                                    <a class="rbt-btn-link" href="course-details-2">Learn More<i
+                                                    <a class="rbt-btn-link" href="/tutoring/course-details-3">Learn More<i
                                                             class="feather-arrow-right"></i></a>
                                                 </div>
                                             </div>
@@ -726,7 +731,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-card variation-01 rbt-hover">
                                             <div class="rbt-card-img">
-                                                <a href="course-details">
+                                                <a href="/tutoring/course-details">
                                                     <img src="/static/images/course/python-img.jpeg" alt="Card image">
                                                     <div class="rbt-badge-3 bg-white">
                                                         <span>-40%</span>
@@ -739,7 +744,7 @@
                                                     <li><i class="feather-book"></i>12 Lessons</li>
                                                     <li><i class="feather-users"></i>50 Students</li>
                                                 </ul>
-                                                <h4 class="rbt-card-title"><a href="course-details">Python Complete</a>
+                                                <h4 class="rbt-card-title"><a href="/tutoring/course-details">Python Complete</a>
                                                 </h4>
                                                 <p class="rbt-card-text">It is a long established fact that a reader
                                                     will be distracted.</p>
@@ -758,7 +763,7 @@
                                                         <span class="current-price">Free</span>
                                                         <span class="off-price">$120</span>
                                                     </div>
-                                                    <a class="rbt-btn-link" href="course-details">Learn More<i
+                                                    <a class="rbt-btn-link" href="/tutoring/course-details">Learn More<i
                                                             class="feather-arrow-right"></i></a>
                                                 </div>
                                             </div>
@@ -793,7 +798,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="rbt-card variation-01 rbt-hover">
                             <div class="rbt-card-img">
-                                <a href="course-details">
+                                <a href="/tutoring/course-details">
                                     <img src="/static/images/course/react-img.jpeg" alt="Card image">
                                     <div class="rbt-badge-3 bg-white">
                                         <span>-50%</span>
@@ -819,7 +824,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="rbt-card-title"><a href="course-details-2">React Front-end Development 2023</a>
+                                <h4 class="rbt-card-title"><a href="/tutoring/course-details-3">React Front-end Development 2023</a>
                                 </h4>
                                 <ul class="rbt-meta">
                                     <li><i class="feather-book"></i>20 Lessons</li>
@@ -843,7 +848,7 @@
                                         <span class="current-price">Free</span>
                                         <span class="off-price">$120</span>
                                     </div>
-                                    <a class="rbt-btn-link" href="course-details-2">Learn
+                                    <a class="rbt-btn-link" href="/tutoring/course-details-3">Learn
                                         More<i class="feather-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -855,7 +860,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="rbt-card variation-01 rbt-hover">
                             <div class="rbt-card-img">
-                                <a href="course-details">
+                                <a href="/tutoring/course-details">
                                     <img src="/static/images/course/nodejs-img.jpeg" alt="Card image">
                                     <div class="rbt-badge-3 bg-white">
                                         <span>-40%</span>
@@ -879,7 +884,7 @@
                                         <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
                                     </div>
                                 </div>
-                                <h4 class="rbt-card-title"><a href="course-details-3">Nodejs Fullstack Development 2024</a>
+                                <h4 class="rbt-card-title"><a href="/tutoring/course-details-3">Nodejs Fullstack Development 2024</a>
                                 </h4>
                                 <ul class="rbt-meta">
                                     <li><i class="feather-book"></i>12 Lessons</li>
@@ -902,7 +907,7 @@
                                         <span class="current-price">Free</span>
                                         <span class="off-price">$120</span>
                                     </div>
-                                    <a class="rbt-btn-link left-icon" href="course-details-3"><i class="feather-arrow-right"></i> Learn more</a>
+                                    <a class="rbt-btn-link left-icon" href="/tutoring/course-details-3"><i class="feather-arrow-right"></i> Learn more</a>
                                 </div>
                             </div>
                         </div>
@@ -913,7 +918,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="rbt-card variation-01 rbt-hover">
                             <div class="rbt-card-img">
-                                <a href="course-details">
+                                <a href="/tutoring/course-details">
                                     <img src="/static/images/course/python-img.jpeg" alt="Card image">
                                     <div class="rbt-badge-3 bg-white">
                                         <span>-40%</span>
@@ -937,7 +942,7 @@
                                         <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
                                     </div>
                                 </div>
-                                <h4 class="rbt-card-title"><a href="course-details">The Complete python 2023</a>
+                                <h4 class="rbt-card-title"><a href="/tutoring/course-details">The Complete python 2023</a>
                                 </h4>
                                 <ul class="rbt-meta">
                                     <li><i class="feather-book"></i>8 Lessons</li>
@@ -960,7 +965,7 @@
                                         <span class="current-price">Free</span>
                                         <span class="off-price">$100</span>
                                     </div>
-                                    <a class="rbt-btn-link" href="course-details">Learn
+                                    <a class="rbt-btn-link" href="/tutoring/course-details">Learn
                                         More<i class="feather-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -1076,6 +1081,12 @@
     <script src="/static/js/vendor/plyr.js"></script>
     <!-- Main JS -->
     <script src="/static/js/main.js"></script>
+<script>
+         $("#logout-link").on("click", function (event) {
+            event.preventDefault();  // Prevent the default anchor behavior
+            $("#logout-form").submit();  // Submit the hidden logout form
+        });
+    </script>
 </body>
 
 </html>

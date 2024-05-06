@@ -58,6 +58,9 @@
                                 <li class="with-megamenu has-menu-child-item position-/static">
                                     <a href="/tutoring/">Home</a>
                                 </li>
+                                <li class="with-megamenu has-menu-child-item position-/static">
+                                    <a href="/tutoring/dashboard">Dashboard</a>
+                                </li>
 
                                 <li class="with-megamenu has-menu-child-item">
                                     <a href="#">Courses <i class="feather-chevron-down"></i></a>
@@ -70,9 +73,9 @@
                                                 <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
                                                     <h3 class="rbt-short-title">Courses</h3>
                                                     <ul class="mega-menu-item">
-                                                        <li><a href="course-details">The Complete Python 2023 <br>Zero to Hero</a></li>
-                                                        <li><a href="course-details-2">React Front-end Development 2023</a></li>
-                                                        <li><a href="course-details-3">Nodejs Fullstack Development 2024<span class="rbt-badge-card">New</span></a></li>
+                                                        <li><a href="/tutoring/course-details">The Complete Python 2023 <br>Zero to Hero</a></li>
+                                                        <li><a href="/tutoring/course-details-2">React Front-end Development 2023</a></li>
+                                                        <li><a href="/tutoring/course-details-3">Nodejs Fullstack Development 2024<span class="rbt-badge-card">New</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -87,38 +90,46 @@
                     </div>
 
                     <div class="header-right">
-
                         <!-- Navbar Icons -->
                         <ul class="quick-access">
-                            
+                            {% if user.is_authenticated %}
+                                <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                                    <a href="#"><i class="feather-user"></i>{{ user.first_name }}</a>
+                                    <div class="rbt-user-menu-list-wrapper">
+                                        <div class="inner">
+                                            <div class="rbt-admin-profile">
+                                                <div class="admin-thumbnail">
+                                                    <img src="/static/images/team/avatar.jpg" alt="User Images">
+                                                </div>
+                                                <div class="admin-info">
+                                                    <span class="name">{{ user.first_name }}</span>
+                                                </div>
+                                            </div>
+                                                                                
+                                            <hr class="mt--10 mb--10">
+                                            <ul class="user-list-wrapper">
+                                                <li>
+                                                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                                        {% csrf_token %}  <!-- CSRF token for security -->
+                                                    </form>
 
-                            <li class="account-access rbt-user-wrapper d-none d-xl-block">
-                                <a href="#"><i class="feather-user"></i>Divya</a>
-                                <div class="rbt-user-menu-list-wrapper">
-                                    <div class="inner">
-                                        <div class="rbt-admin-profile">
-                                            <div class="admin-thumbnail">
-                                                <img src="/static/images/team/avatar.jpg" alt="User Images">
-                                            </div>
-                                            <div class="admin-info">
-                                                <span class="name">Divya</span>
-                                                <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
-                                            </div>
+                                                    <a href="#" id="logout-link">  <!-- Optional: href can be left as # or empty -->
+                                                        <i class="feather-log-out"></i>  <!-- Icon for logout -->
+                                                        <span>Logout</span>  <!-- Text for logout -->
+                                                    </a>
+                                                   
+                                                </li>
+                                            </ul>
                                         </div>
-                                                                               
-                                        <hr class="mt--10 mb--10">
-                                        <ul class="user-list-wrapper">
-                                            <li>
-                                                <a href=" ">
-                                                    <i class="feather-log-out"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
-                                </div>
-                            </li>
-
+                                </li>
+                            {% else %}
+                                <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                                    <a href="#"><i class="feather-user"></i><a href="{% url 'login' %}">Login</a></a>
+                                </li>
+                                
+                            {% endif %}
+                            
                             <li class="access-icon rbt-user-wrapper d-block d-xl-none">
                                 <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
                                 <div class="rbt-user-menu-list-wrapper">
@@ -129,7 +140,7 @@
                                             </div>
                                             <div class="admin-info">
                                                 <span class="name">Divya</span>
-                                                <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
+                                                <a class="rbt-btn-link color-primary" href="dashboard">Dashboard</a>
                                             </div>
                                         </div>
                                         
@@ -148,12 +159,6 @@
                                 </div>
                             </li>
                         </ul>
-
-                        <!-- <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#">
-                                <span data-text="Enroll Now">Enroll Now</span>
-                            </a>
-                        </div> -->
 
                         <!-- Start Mobile-Menu-Bar -->
                         <div class="mobile-menu-bar d-block d-xl-none">
@@ -197,12 +202,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-01.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">React Js</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">React Js</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -229,12 +234,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-02.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Java Program</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Java Program</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -261,12 +266,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-03.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Web Design</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Web Design</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -293,12 +298,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details">
+                                    <a href="/tutoring/course-details">
                                         <img src="/static/images/course/course-online-04.jpg" alt="Card image">
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title"><a href="course-details">Web Design</a>
+                                    <h5 class="rbt-card-title"><a href="/tutoring/course-details">Web Design</a>
                                     </h5>
                                     <div class="rbt-review">
                                         <div class="rating">
@@ -475,7 +480,7 @@
     <a class="close_side_menu" href="javascript:void(0);"></a>
 
 
-    <div class="rbt-section-overlayping-top rbt-section-gapBottom">
+    <div class="rbt-section-gapBottom">
         <div class="inner">
             <div class="container">
                 <div class="col-lg-12">
@@ -519,7 +524,7 @@
 
                                     
                                         <div class="rbt-widget-details has-show-more">
-                                            <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
+                                            <ul class="has-show-more-inner-content rbt-/tutoring/course-details-list-wrapper">
                                                 <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
                                                 </li>
                                                 <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
@@ -543,7 +548,7 @@
 
                         <div class="col-lg-8">
                             <!-- Start Course Details  -->
-                            <div class="course-details-content">
+                            <div class="/tutoring/course-details-content">
                                 <div class="rbt-inner-onepage-navigation sticky-top">
                                     <nav class="mainmenu-nav onepagenav">
                                         <ul class="mainmenu">
@@ -1310,6 +1315,12 @@
     <script src="/static/js/vendor/plyr.js"></script>
     <!-- Main JS -->
     <script src="/static/js/main.js"></script>
+<script>
+         $("#logout-link").on("click", function (event) {
+            event.preventDefault();  // Prevent the default anchor behavior
+            $("#logout-form").submit();  // Submit the hidden logout form
+        });
+    </script>
 </body>
 
 </html>

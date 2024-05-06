@@ -234,7 +234,7 @@
                     </div>
                     <div class="lesson-top-right">
                         <div class="rbt-btn-close">
-                            <a href="course-details" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
+                            <a href="/tutoring/course-details" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -397,6 +397,12 @@
     <script src="/static/js/vendor/plyr.js"></script>
     <!-- Main JS -->
     <script src="/static/js/main.js"></script>
+<script>
+         $("#logout-link").on("click", function (event) {
+            event.preventDefault();  // Prevent the default anchor behavior
+            $("#logout-form").submit();  // Submit the hidden logout form
+        });
+    </script>
 </body>
 
 </html>

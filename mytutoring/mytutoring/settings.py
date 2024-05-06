@@ -101,9 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+LOGIN_REDIRECT_URL = '/tutoring/'
+LOGOUT_REDIRECT_URL = '/tutoring/'
 
 LANGUAGE_CODE = 'en-us'
 
